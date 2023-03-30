@@ -4,12 +4,34 @@
 using namespace std;
 #define _CRTDBG_MAP_ALLOC
 
+float sigmoid(float x)
+{
+	return 1 / (1 + exp(-x));
+}
+
+float sigmoid_derivative(float x)
+{
+	return sigmoid(x) * (1 - sigmoid(x));
+}
+
+float random_float()
+{
+	return rand() / (float)RAND_MAX;
+}
+
 class neuron
 {
 public:
 	int num_weights = 0;
 	float* weights = nullptr;
 	float activation_value = 0.0f;
+
+	neuron() {}
+
+	void activate()
+	{
+
+	}
 };
 
 class layer
@@ -17,6 +39,8 @@ class layer
 public:
 	int num_neurons = 0;
 	neuron* neurons = nullptr;
+
+	layer() {}
 };
 
 class neural_network
@@ -53,21 +77,6 @@ public:
 		}
 	}
 
-	float sigmoid(float x)
-	{
-		return 1 / (1 + exp(-x));
-	}
-
-	float sigmoid_derivative(float x)
-	{
-		return sigmoid(x) * (1 - sigmoid(x));
-	}
-
-	float random_float()
-	{
-		return rand() / (float)RAND_MAX;
-	}
-
 	~neural_network()
 	{
 		for (int layer_index = 0; layer_index < num_layers; layer_index++)
@@ -102,8 +111,6 @@ int main()
 				window.close();
 			}
 		}
-
-		cout << neural_network.random_float() << "\n";
 
 		window.clear(sf::Color(0, 0, 0));
 		window.display();
